@@ -1,0 +1,47 @@
+<div *ngIf="artista" class="container top30">
+  <div class="row">
+    <div class="col-md-3 text-center">
+      <img [src]="artista.images | sinfoto" class="img-circle img-thumbnail">
+    </div>
+    <div class="col-md-9">
+      <h1>{{artista.name}}</h1>
+      <a [href]="artista.external_urls.spotify" target="_blank" class="btn btn-outline-success">Abrir Spotify</a>
+         &nbsp;
+      <button [routerLink]="['/search']" class="btn btn-outline-danger">Regresar</button>
+      <hr>
+      <p><b>Follower:</b> {{artista.followers.total}}</p>
+      <p><b>Popularity:</b> {{artista.popularity}}</p>
+      <p><b>Geners:</b> <label *ngFor="let item of artista.genres">{{item}} &nbsp;</label></p>
+    </div>
+  </div>
+  <div class="row top30">
+    <div class="col-md-12">
+      <h2>Populares</h2>
+      <hr>
+      <table class="table table-dark">
+    <thead>
+      <tr>
+        <th></th>
+        <th>#</th>
+        <th>Track</th>
+        <th>Duration</th>
+        <th>Popularity</th>
+        <th>Preview</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of topTracks; let i=index;">
+        <th><img [src]="item.album.images | sinfoto:'2'" class="img-fluid"></th>
+        <th>{{i+1}}</th>
+        <td><p>{{item.name}}</p></td>
+        <td>{{item.duration_ms | formatDuration}}</td>
+        <td>{{item.popularity}}%</td>
+        <td>
+          <iframe [src]="item.uri | domseguro:'https://open.spotify.com/embed?uri='" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+    </div>
+  </div>
+</div>
